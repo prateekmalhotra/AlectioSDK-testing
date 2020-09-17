@@ -10,7 +10,7 @@ class WebDriver:
 	def __init__(self):
 		options = Options()
 		options.headless = True
-		self.driver = webdriver.Firefox(executable_path="/home/ubuntu/Home/testing/geckodriver", options=options)
+		self.driver = webdriver.Firefox(executable_path="/home/ubuntu/Home/AlectioSDK-testing/geckodriver", options=options)
 
 	def open_website(self, website):
 		self.driver.get(website)
