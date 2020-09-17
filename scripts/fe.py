@@ -106,5 +106,5 @@ class WebDriver:
 
 if __name__ == "__main__":
 	driver = WebDriver()
-	driver.create_project("Test_", "54.214.167.54", "5000", "50000", "Classification", "/home/ubuntu/Home/testing/examples/image_classification/cifar10/cif_class_labels.json")
+	driver.create_project("Test_", "54.214.167.54", "5000", "50000", "Classification", "/home/ubuntu/Home/AlectioSDK-testing/examples/image_classification/cifar10/cif_class_labels.json")
 	driver.create_experiment("Test_", "testy", "10", "5000")
