@@ -11,7 +11,7 @@ class WebDriver:
 	def __init__(self):
 		options = Options()
 		options.headless = True
-		self.driver = webdriver.Firefox(executable_path="../geckodriver", options=options)
+		self.driver = webdriver.Firefox(executable_path="./geckodriver", options=options)
 
 	def open_website(self, website):
 		self.driver.get(website)
