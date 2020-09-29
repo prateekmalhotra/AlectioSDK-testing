@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.options import Options
 class WebDriver:
 	def __init__(self):
 		options = Options()
-		#options.headless = True
+		options.headless = True
 		self.driver = webdriver.Firefox(executable_path="../geckodriver", options=options)
 
 	def open_website(self, website):
