@@ -10,7 +10,7 @@ class WebDriver:
 	def __init__(self):
 		options = Options()
 		options.headless = True
-		self.driver = webdriver.Firefox(executable_path="/home/ubuntu/Home/testing/geckodriver", options=options)
+		self.driver = webdriver.Firefox(executable_path="/home/ubuntu/Home/AlectioSDK-testing/geckodriver", options=options)
 
 	def open_website(self, website):
 		self.driver.get(website)
@@ -63,8 +63,21 @@ class WebDriver:
 	def close(self):
 		self.driver.close()
 
+	def login(self, username, password):
+		wait = WebDriverWait(self.driver, 10)
+		self.open_website('https://login.alectio.com/SSO/login')
+		wait.until(EC.presence_of_element_located((By.ID, "email")))
+		tbox = self.driver.find_element_by_id("email")
+		tbox.clear()
+		tbox.send_keys(username)
+
+		tbox = self.driver.find_element_by_id("password")
+		tbox.clear()
+		tbox.send_keys(password)
+
+		self.press_button_by_text("Sign In")
+
 	def create_project(self, project_name, ip, port, training_size, task_type, json_file_path):
-		self.open_website('http://platformfrontendtest-env.eba-m8rbzmhm.us-west-2.elasticbeanstalk.com/mainplatform/onboarding')
 		self.enter_text("mat-input-0", project_name)
 		self.press_button("next-button")
 		self.press_button("mat-radio-2")
@@ -106,5 +119,6 @@ class WebDriver:
 
 if __name__ == "__main__":
 	driver = WebDriver()
-	driver.create_project("Test_", "54.214.167.54", "5000", "50000", "Classification", "/home/ubuntu/Home/testing/examples/image_classification/cifar10/cif_class_labels.json")
-	driver.create_experiment("Test_", "testy", "10", "5000")
+	driver.login("prateekdbst@gmail.com", "teamwork11")
+	driver.create_project("CIFAR-10", "54.214.167.54", "5000", "50000", "Classification", "/home/ubuntu/Home/AlectioSDK-testing/examples/image_classification/cifar10/cif_class_labels.json")
+	driver.create_experiment("CIFAR-10", "CIFAR-low-conf", "10", "5000")
