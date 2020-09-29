@@ -1,3 +1,4 @@
+import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,8 +10,8 @@ from selenium.webdriver.firefox.options import Options
 class WebDriver:
 	def __init__(self):
 		options = Options()
-		options.headless = True
-		self.driver = webdriver.Firefox(executable_path="/home/ubuntu/Home/AlectioSDK-testing/geckodriver", options=options)
+		#options.headless = True
+		self.driver = webdriver.Firefox(executable_path="../geckodriver", options=options)
 
 	def open_website(self, website):
 		self.driver.get(website)
@@ -77,10 +78,14 @@ class WebDriver:
 
 		self.press_button_by_text("Sign In")
 
+		self.driver.implicitly_wait(10)
+		self.press_button_by_value("Skip")
+
 	def create_project(self, project_name, ip, port, training_size, task_type, json_file_path):
+		self.press_button("new-project")
 		self.enter_text("mat-input-0", project_name)
 		self.press_button("next-button")
-		self.press_button("mat-radio-2")
+		self.press_button("mat-radio-5")
 		self.press_button("next-button")
 		self.press_button("dataset-library-card")
 		self.press_button("next-button")
@@ -90,14 +95,15 @@ class WebDriver:
 		self.select_dropdown("mat-select-1", task_type)
 		self.upload_file(json_file_path)
 		self.press_button("next-button")
-		self.press_button("mat-radio-6")
+		self.press_button("mat-radio-9")
 		self.press_button("next-button")
 		self.press_button_by_text("Submit")
 
 	def create_experiment(self, project_name, experiment_name, nloops, nrecordsperloop):
-		self.open_website('http://platformfrontendtest-env.eba-m8rbzmhm.us-west-2.elasticbeanstalk.com/mainplatform/projects')
+		self.open_website("http://demo.alectio.com/mainplatform/projects")
+		self.press_button_by_value("Skip")
 		self.enter_text_by_placeholder("Filter Rows", project_name)
-		self.press_button_by_text("Test")
+		self.press_button(project_name)
 		self.press_button("experimentation-button")
 		self.press_button("newexp-card")
 		self.press_button_by_value("Next")
@@ -119,6 +125,6 @@ class WebDriver:
 
 if __name__ == "__main__":
 	driver = WebDriver()
-	driver.login("prateekdbst@gmail.com", "teamwork11")
-	driver.create_project("CIFAR-10", "54.214.167.54", "5000", "50000", "Classification", "/home/ubuntu/Home/AlectioSDK-testing/examples/image_classification/cifar10/cif_class_labels.json")
+	driver.login("prateekdbst@gmail.com", "Teamwork11#")
+	#driver.create_project("CIFAR-10", "54.214.167.54", "5000", "50000", "Classification", os.path.realpath("../examples/image_classification/cifar10/cif_class_labels.json"))
 	driver.create_experiment("CIFAR-10", "CIFAR-low-conf", "10", "5000")
