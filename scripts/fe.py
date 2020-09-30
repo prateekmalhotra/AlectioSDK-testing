@@ -11,6 +11,9 @@ class WebDriver:
 	def __init__(self):
 		options = Options()
 		options.headless = True
+		options.add_argument('--no-sandbox')
+		options.add_argument("--start-maximized")
+		options.add_argument('--ignore-certificate-errors')
 		self.driver = webdriver.Firefox(executable_path="./geckodriver", options=options)
 
 	def open_website(self, website):
@@ -65,7 +68,7 @@ class WebDriver:
 		self.driver.close()
 
 	def login(self, username, password):
-		wait = WebDriverWait(self.driver, 10)
+		wait = WebDriverWait(self.driver, 60)
 		self.open_website('https://login.alectio.com/SSO/login')
 		wait.until(EC.presence_of_element_located((By.ID, "email")))
 		tbox = self.driver.find_element_by_id("email")
@@ -126,5 +129,5 @@ class WebDriver:
 if __name__ == "__main__":
 	driver = WebDriver()
 	driver.login("prateekdbst@gmail.com", "Teamwork11#")
-	#driver.create_project("CIFAR-10", "54.214.167.54", "5000", "50000", "Classification", os.path.realpath("../examples/image_classification/cifar10/cif_class_labels.json"))
-	driver.create_experiment("CIFAR-10", "CIFAR-low-conf", "10", "5000")
+	driver.create_project("CIFAR-10", "54.214.167.54", "5000", "50000", "Classification", os.path.realpath("examples/image_classification/cifar10/cif_class_labels.json"))
+	#driver.create_experiment("CIFAR-10", "CIFAR-low-conf", "10", "5000")
